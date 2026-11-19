@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-[#090A0E] text-[#F5F3EF] overflow-x-hidden font-sans selection:bg-[#D4AF37] selection:text-black;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #090A0E;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #232838;
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #D4AF37;
+}
+
+/* Subtle Film Grain Overlay */
+.bg-grain {
+  background-image: radial-gradient(rgba(212, 175, 55, 0.03) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* Ticker Marquee Animation */
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-ticker {
+  display: flex;
+  width: max-content;
+  animation: ticker 32s linear infinite;
+}
+
+.animate-ticker:hover {
+  animation-play-state: paused;
+}
+
+/* VIP Ticket Notch Styling */
+.ticket-notch-left {
+  position: relative;
+}
+.ticket-notch-left::before {
+  content: '';
+  position: absolute;
+  left: -12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #090A0E;
+  border: 1px solid #232838;
+  z-index: 10;
+}
+
+.ticket-notch-right {
+  position: relative;
+}
+.ticket-notch-right::after {
+  content: '';
+  position: absolute;
+  right: -12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #090A0E;
+  border: 1px solid #232838;
+  z-index: 10;
+}
