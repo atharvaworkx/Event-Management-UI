@@ -3,7 +3,7 @@ import { Announcement, College, EventItem, NotificationItem, Registration } from
 import { eventsData } from '../data/events';
 import { collegesData } from '../data/colleges';
 import { announcementsData } from '../data/announcements';
-import { initialRegistrations, mockCertificates, mockNotifications, mockStudentProfile } from '../data/student';
+import { initialRegistrations, mockNotifications, mockStudentProfile } from '../data/student';
 
 export type ViewType = 
   | 'home' 
@@ -21,7 +21,7 @@ export type ViewType =
 
 export type UserRole = 'student' | 'organizer' | 'admin';
 
-interface CheckInLog {
+export interface CheckInLog {
   id: string;
   passId: string;
   studentName: string;
@@ -45,6 +45,7 @@ interface AppContextType {
   notifications: NotificationItem[];
   searchModalOpen: boolean;
   registrationModalOpen: boolean;
+  createEventModalOpen: boolean;
   registeringEvent: EventItem | null;
   activePassModal: Registration | null;
   scannerModalOpen: boolean;
@@ -58,6 +59,8 @@ interface AppContextType {
   isBookmarked: (eventId: string) => boolean;
   openRegistration: (event: EventItem) => void;
   closeRegistration: () => void;
+  setCreateEventModalOpen: (open: boolean) => void;
+  addEvent: (event: EventItem) => void;
   submitRegistration: (data: Omit<Registration, 'id' | 'passId' | 'registeredAt' | 'qrCodeSignature' | 'status'>) => Registration;
   openPassModal: (reg: Registration) => void;
   closePassModal: () => void;
@@ -78,13 +81,18 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [selectedEventId, setSelectedEventId] = useState<string | null>('kshitij-2026');
   const [selectedCollegeId, setSelectedCollegeId] = useState<string | null>('mit-acsc');
   const [userRole, setUserRole] = useState<UserRole>('student');
-  const [events, setEvents] = useState<EventItem[]>(eventsData);
+
+  const [events, setEvents] = useState<EventItem[]>(() => {
+    const saved = localStorage.getItem('ems_events_v2');
+    return saved ? JSON.parse(saved) : eventsData;
+  });
+
   const [colleges] = useState<College[]>(collegesData);
   const [announcements] = useState<Announcement[]>(announcementsData);
   
-  // Local storage loaded or defaults
+  // Clean registrations without any personal identity
   const [registrations, setRegistrations] = useState<Registration[]>(() => {
-    const saved = localStorage.getItem('ems_registrations');
+    const saved = localStorage.getItem('ems_registrations_v3');
     return saved ? JSON.parse(saved) : initialRegistrations;
   });
 
@@ -98,6 +106,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [searchModalOpen, setSearchModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [registrationModalOpen, setRegistrationModalOpen] = useState(false);
+  const [createEventModalOpen, setCreateEventModalOpen] = useState(false);
   const [registeringEvent, setRegisteringEvent] = useState<EventItem | null>(null);
   const [activePassModal, setActivePassModal] = useState<Registration | null>(null);
   const [scannerModalOpen, setScannerModalOpen] = useState(false);
@@ -106,7 +115,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     {
       id: 'chk-1',
       passId: 'INN-26-00421',
-      studentName: 'Atharva Warankar',
+      studentName: 'Devansh Mehta',
       college: 'MIT ACSC, Pune',
       eventTitle: 'Innovyuh Hackathon 2026',
       timestamp: 'Today at 09:42 AM',
@@ -125,16 +134,19 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
   ]);
 
-  // Persist registrations & bookmarks
+  // Persist registrations & events
   useEffect(() => {
-    localStorage.setItem('ems_registrations', JSON.stringify(registrations));
+    localStorage.setItem('ems_registrations_v2', JSON.stringify(registrations));
   }, [registrations]);
+
+  useEffect(() => {
+    localStorage.setItem('ems_events_v2', JSON.stringify(events));
+  }, [events]);
 
   useEffect(() => {
     localStorage.setItem('ems_bookmarks', JSON.stringify(bookmarks));
   }, [bookmarks]);
 
-  // Scroll to top on navigation
   const navigateTo = (view: ViewType, id?: string) => {
     if (view === 'event-detail' && id) {
       setSelectedEventId(id);
@@ -164,6 +176,20 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setRegisteringEvent(null);
   };
 
+  const addEvent = (newEvent: EventItem) => {
+    setEvents(prev => [newEvent, ...prev]);
+    const newNotif: NotificationItem = {
+      id: `notif-${Date.now()}`,
+      title: `New Event Published: ${newEvent.title}`,
+      message: `Event has been successfully listed under ${newEvent.category}.`,
+      timeAgo: 'Just now',
+      read: false,
+      type: 'success',
+      linkTarget: newEvent.id
+    };
+    setNotifications(prev => [newNotif, ...prev]);
+  };
+
   const submitRegistration = (data: Omit<Registration, 'id' | 'passId' | 'registeredAt' | 'qrCodeSignature' | 'status'>): Registration => {
     const randomSuffix = Math.floor(1000 + Math.random() * 9000);
     const eventPrefix = data.eventTitle.slice(0, 3).toUpperCase();
@@ -179,14 +205,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
     setRegistrations(prev => [newReg, ...prev]);
 
-    // increment event registration count in state
+    // increment event registration count
     setEvents(prev => prev.map(ev => ev.id === data.eventId ? { ...ev, registrationCount: ev.registrationCount + 1 } : ev));
 
-    // add notification
     const newNotif: NotificationItem = {
       id: `notif-${Date.now()}`,
       title: `Registration Confirmed: ${data.eventTitle}`,
-      message: `Your VIP pass has been issued (${passId}). See your Digital Pass in the dashboard.`,
+      message: `Your pass has been generated (${passId}). See your Digital Pass in the dashboard.`,
       timeAgo: 'Just now',
       read: false,
       type: 'success',
@@ -207,11 +232,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const processCheckIn = (codeOrPassId: string): { success: boolean; message: string; record?: CheckInLog } => {
     const trimmed = codeOrPassId.trim().toUpperCase();
-    // find matching registration by passId or signature or sample matches
     const foundReg = registrations.find(r => r.passId.toUpperCase() === trimmed || r.qrCodeSignature.toUpperCase() === trimmed || trimmed.includes(r.passId.toUpperCase()));
 
     if (foundReg) {
-      // Check if already checked in
       const alreadyChecked = checkInLogs.some(l => l.passId === foundReg.passId && l.status === 'Verified');
       const nowTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
       
@@ -236,7 +259,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         };
       }
 
-      // Mark registration status as Checked In
       setRegistrations(prev => prev.map(r => r.id === foundReg.id ? { ...r, status: 'Checked In' } : r));
 
       return {
@@ -245,14 +267,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         record: newLog
       };
     } else {
-      // Create fallback valid verification for Atharva Warankar if typed generic pass
       const defaultPass = 'KSH-26-01482';
       if (trimmed === defaultPass || trimmed.includes('01482')) {
         const nowTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         const newLog: CheckInLog = {
           id: `chk-${Date.now()}`,
           passId: defaultPass,
-          studentName: 'Atharva Warankar',
+          studentName: 'Devansh Mehta',
           college: 'MIT Arts, Commerce & Science College, Pune',
           eventTitle: 'Kshitij 2026',
           timestamp: `Today at ${nowTime}`,
@@ -262,7 +283,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         setCheckInLogs(prev => [newLog, ...prev]);
         return {
           success: true,
-          message: 'Entry verified successfully for Atharva Warankar.',
+          message: 'Entry verified successfully for Devansh Mehta.',
           record: newLog
         };
       }
@@ -313,6 +334,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         notifications,
         searchModalOpen,
         registrationModalOpen,
+        createEventModalOpen,
         registeringEvent,
         activePassModal,
         scannerModalOpen,
@@ -324,6 +346,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         isBookmarked,
         openRegistration,
         closeRegistration,
+        setCreateEventModalOpen,
+        addEvent,
         submitRegistration,
         openPassModal,
         closePassModal,
@@ -349,4 +373,3 @@ export const useApp = () => {
   }
   return context;
 };
-

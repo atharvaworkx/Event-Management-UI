@@ -19,7 +19,7 @@ import { EmptyState } from '../components/common/EmptyState';
 import { EventCategory, EventStatus, EventMode } from '../types';
 
 export const EventsPage: React.FC = () => {
-  const { events, colleges, navigateTo, openRegistration, toggleBookmark, isBookmarked } = useApp();
+  const { events, colleges, navigateTo, openRegistration, toggleBookmark, isBookmarked, setCreateEventModalOpen } = useApp();
 
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
@@ -73,22 +73,32 @@ export const EventsPage: React.FC = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10 space-y-10">
       {/* Editorial Header */}
-      <div className="border-b border-surface-border pb-8">
-        <div className="flex items-center gap-2 mb-2">
-          <span className="text-xs font-mono uppercase tracking-widest text-gold-400 font-semibold">
-            DISCOVERY CATALOG
-          </span>
-          <span className="text-gray-600">•</span>
-          <span className="text-xs font-mono text-gray-400 uppercase">
-            {events.length} ACCREDITED EVENTS
-          </span>
+      <div className="border-b border-surface-border pb-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div>
+          <div className="flex items-center gap-2 mb-2">
+            <span className="text-xs font-mono uppercase tracking-widest text-gold-400 font-semibold">
+              DISCOVERY CATALOG
+            </span>
+            <span className="text-gray-600">•</span>
+            <span className="text-xs font-mono text-gray-400 uppercase">
+              {events.length} ACCREDITED EVENTS
+            </span>
+          </div>
+          <h1 className="font-serif text-3xl sm:text-5xl font-black text-paper uppercase tracking-tight">
+            Explore College Events & Hackathons
+          </h1>
+          <p className="text-sm sm:text-base text-gray-400 max-w-2xl mt-2 leading-relaxed font-sans">
+            Filter through national hackathons, cultural festivals, competitive programming marathons, and academic conclaves hosted across Pune.
+          </p>
         </div>
-        <h1 className="font-serif text-3xl sm:text-5xl font-black text-paper uppercase tracking-tight">
-          Explore College Events & Hackathons
-        </h1>
-        <p className="text-sm sm:text-base text-gray-400 max-w-2xl mt-2 leading-relaxed font-sans">
-          Filter through national hackathons, cultural festivals, competitive programming marathons, and academic conclaves hosted across Pune.
-        </p>
+
+        <Button
+          variant="primary"
+          className="rounded-xl shrink-0"
+          onClick={() => setCreateEventModalOpen(true)}
+        >
+          + Add New Event
+        </Button>
       </div>
 
       {/* Filter Controls Bar */}

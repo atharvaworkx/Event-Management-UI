@@ -182,7 +182,7 @@ export const eventsData: EventItem[] = [
       { q: 'What should we bring with us?', a: 'Laptops, chargers, extension cords, valid college ID, student digital pass, and any hardware components needed for your prototype.' }
     ],
     contacts: [
-      { name: 'Atharva Warankar', role: 'Lead Student Organizer & Tech Head', phone: '+91 99221 00982', email: 'atharva.tech@mitacsc.ac.in' },
+      { name: 'Kavya Deshmukh', role: 'Lead Student Organizer & Tech Head', phone: '+91 98231 77410', email: 'kavya.tech@mitacsc.ac.in' },
       { name: 'Dr. Anupama Patil', role: 'Faculty Hackathon Coordinator', phone: '+91 94220 18374', email: 'innovyuh@mitacsc.ac.in' }
     ],
     status: 'Registration Open',

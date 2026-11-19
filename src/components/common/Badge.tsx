@@ -14,8 +14,8 @@ export const Badge: React.FC<BadgeProps> = ({
   size = 'md'
 }) => {
   const sizeStyles = size === 'sm' 
-    ? 'text-[10px] px-2 py-0.5 tracking-wider' 
-    : 'text-xs px-2.5 py-1 tracking-wider';
+    ? 'text-[10px] px-2.5 py-0.5 tracking-wider' 
+    : 'text-xs px-3 py-1 tracking-wider';
 
   const variantStyles = {
     gold: 'bg-gold-400/10 text-gold-400 border border-gold-400/30 font-medium',
@@ -27,9 +27,8 @@ export const Badge: React.FC<BadgeProps> = ({
   };
 
   return (
-    <span className={`inline-flex items-center uppercase font-mono rounded ${sizeStyles} ${variantStyles[variant]} ${className}`}>
+    <span className={`inline-flex items-center uppercase font-mono rounded-lg ${sizeStyles} ${variantStyles[variant]} ${className}`}>
       {children}
     </span>
   );
 };
-

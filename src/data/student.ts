@@ -1,15 +1,15 @@
 import { CertificateItem, NotificationItem, Registration } from '../types';
 
 export const mockStudentProfile = {
-  name: 'Atharva Warankar',
-  email: 'atharva.warankar@mitacsc.ac.in',
-  phone: '+91 99221 00982',
+  name: 'Devansh Mehta',
+  email: 'devansh.mehta@mitacsc.ac.in',
+  phone: '+91 98765 43210',
   college: 'MIT Arts, Commerce & Science College, Pune',
   collegeShort: 'MIT ACSC',
   course: 'B.Sc. Computer Science',
   year: 'Third Year (TY)',
   prnNumber: '1120230894B',
-  avatarInitials: 'AW',
+  avatarInitials: 'DM',
   streakCount: 6,
   totalEventsParticipated: 8,
   trophiesWon: 3,
@@ -32,20 +32,20 @@ export const initialRegistrations: Registration[] = [
     participationType: 'Team',
     teamName: 'CyberCrafters Pune',
     teamMembers: [
-      { name: 'Atharva Warankar', email: 'atharva.warankar@mitacsc.ac.in', role: 'Team Lead' },
+      { name: 'Devansh Mehta', email: 'devansh.mehta@mitacsc.ac.in', role: 'Team Lead' },
       { name: 'Aditi Kulkarni', email: 'aditi.k@mitacsc.ac.in', role: 'Developer' },
       { name: 'Saurabh Joshi', email: 'saurabh.j@mitacsc.ac.in', role: 'Designer' }
     ],
     participant: {
-      name: 'Atharva Warankar',
-      email: 'atharva.warankar@mitacsc.ac.in',
-      phone: '+91 99221 00982',
+      name: 'Devansh Mehta',
+      email: 'devansh.mehta@mitacsc.ac.in',
+      phone: '+91 98765 43210',
       college: 'MIT Arts, Commerce & Science College, Pune',
       course: 'B.Sc. Computer Science',
       year: 'Third Year (TY)',
-      github: 'https://github.com/atharva-warankar',
-      linkedin: 'https://linkedin.com/in/atharva-warankar',
-      portfolio: 'https://atharva.dev'
+      github: 'https://github.com/devansh-mehta',
+      linkedin: 'https://linkedin.com/in/devansh-mehta',
+      portfolio: 'https://devansh.mehta.dev'
     },
     qrCodeSignature: 'EMS-MITACSC-KSH-26-01482-AUTH-SIG'
   },
@@ -63,21 +63,21 @@ export const initialRegistrations: Registration[] = [
     participationType: 'Team',
     teamName: 'Team NexusPrime',
     teamMembers: [
-      { name: 'Atharva Warankar', email: 'atharva.warankar@mitacsc.ac.in', role: 'Lead Architect' },
+      { name: 'Devansh Mehta', email: 'devansh.mehta@mitacsc.ac.in', role: 'Lead Architect' },
       { name: 'Aditi Kulkarni', email: 'aditi.k@mitacsc.ac.in', role: 'ML Engineer' },
       { name: 'Saurabh Joshi', email: 'saurabh.j@mitacsc.ac.in', role: 'Frontend Lead' },
       { name: 'Pooja Patil', email: 'pooja.patil@mitacsc.ac.in', role: 'Backend Dev' }
     ],
     participant: {
-      name: 'Atharva Warankar',
-      email: 'atharva.warankar@mitacsc.ac.in',
-      phone: '+91 99221 00982',
+      name: 'Devansh Mehta',
+      email: 'devansh.mehta@mitacsc.ac.in',
+      phone: '+91 98765 43210',
       college: 'MIT Arts, Commerce & Science College, Pune',
       course: 'B.Sc. Computer Science',
       year: 'Third Year (TY)',
-      github: 'https://github.com/atharva-warankar',
-      linkedin: 'https://linkedin.com/in/atharva-warankar',
-      portfolio: 'https://atharva.dev',
+      github: 'https://github.com/devansh-mehta',
+      linkedin: 'https://linkedin.com/in/devansh-mehta',
+      portfolio: 'https://devansh.mehta.dev',
       projectIdea: 'KrishiAgent: Localized multi-agent agronomic copilot using offline LLMs.'
     },
     qrCodeSignature: 'EMS-MITACSC-INN-26-00421-VERIFIED'
@@ -95,9 +95,9 @@ export const initialRegistrations: Registration[] = [
     status: 'Confirmed',
     participationType: 'Individual',
     participant: {
-      name: 'Atharva Warankar',
-      email: 'atharva.warankar@mitacsc.ac.in',
-      phone: '+91 99221 00982',
+      name: 'Devansh Mehta',
+      email: 'devansh.mehta@mitacsc.ac.in',
+      phone: '+91 98765 43210',
       college: 'MIT Arts, Commerce & Science College, Pune',
       course: 'B.Sc. Computer Science',
       year: 'Third Year (TY)'
@@ -111,7 +111,7 @@ export const mockCertificates: CertificateItem[] = [
     id: 'cert-1',
     verificationId: 'MITACSC-INN25-W-019',
     title: 'Grand Winner - 1st Place',
-    recipientName: 'Atharva Warankar',
+    recipientName: 'Devansh Mehta',
     eventName: 'Innovyuh Hackathon 2025',
     date: 'March 24, 2025',
     collegeName: 'MIT Arts, Commerce & Science College, Pune',
@@ -123,7 +123,7 @@ export const mockCertificates: CertificateItem[] = [
     id: 'cert-2',
     verificationId: 'MITACSC-TB25-RC-044',
     title: 'Speed Coding Laureate - 2nd Place',
-    recipientName: 'Atharva Warankar',
+    recipientName: 'Devansh Mehta',
     eventName: 'TechBlitz IT Fest 2025',
     date: 'February 22, 2025',
     collegeName: 'MIT Arts, Commerce & Science College, Pune',
@@ -135,7 +135,7 @@ export const mockCertificates: CertificateItem[] = [
     id: 'cert-3',
     verificationId: 'COEP-MS25-P-882',
     title: 'Certificate of National Participation',
-    recipientName: 'Atharva Warankar',
+    recipientName: 'Devansh Mehta',
     eventName: 'MindSpark ’25: AlgoSprint',
     date: 'October 14, 2025',
     collegeName: 'COEP Technological University',
@@ -183,4 +183,3 @@ export const mockNotifications: NotificationItem[] = [
     linkTarget: 'it-fest-techblitz-2026'
   }
 ];
-

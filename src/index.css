@@ -20,7 +20,7 @@
 
 ::-webkit-scrollbar-thumb {
   background: #232838;
-  border-radius: 2px;
+  border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -29,24 +29,38 @@
 
 /* Subtle Film Grain Overlay */
 .bg-grain {
-  background-image: radial-gradient(rgba(212, 175, 55, 0.03) 1px, transparent 0);
-  background-size: 24px 24px;
+  background-image: radial-gradient(rgba(212, 175, 55, 0.035) 1px, transparent 0);
+  background-size: 28px 28px;
 }
 
-/* Ticker Marquee Animation */
-@keyframes ticker {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+/* Smooth Fade In and Up */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.animate-ticker {
-  display: flex;
-  width: max-content;
-  animation: ticker 32s linear infinite;
+.animate-fade-in-up {
+  animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.animate-ticker:hover {
-  animation-play-state: paused;
+/* Subtle Gold Glow Pulse */
+@keyframes auraPulse {
+  0%, 100% {
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.12);
+  }
+  50% {
+    box-shadow: 0 0 45px rgba(212, 175, 55, 0.22);
+  }
+}
+
+.animate-aura {
+  animation: auraPulse 4s ease-in-out infinite;
 }
 
 /* VIP Ticket Notch Styling */

@@ -17,7 +17,7 @@ export const leaderboardsData: Record<string, EventLeaderboard> = {
         score: 98.4,
         change: 'up',
         status: 'Prototype Deployed',
-        members: ['Atharva Warankar', 'Aditi Kulkarni', 'Saurabh Joshi', 'Pooja Patil']
+        members: ['Devansh Mehta', 'Aditi Kulkarni', 'Saurabh Joshi', 'Pooja Patil']
       },
       {
         rank: 2,
@@ -91,13 +91,13 @@ export const leaderboardsData: Record<string, EventLeaderboard> = {
       },
       {
         rank: 2,
-        teamName: 'Atharva Warankar',
+        teamName: 'Devansh Mehta',
         college: 'MIT ACSC, Pune',
         project: 'DP Knapsack Bitmask Solver in 15m 08s',
         score: 98.5,
         change: 'up',
         status: 'All Test Cases Passed',
-        members: ['Atharva Warankar']
+        members: ['Devansh Mehta']
       },
       {
         rank: 3,

@@ -93,10 +93,10 @@ export const ScannerModal: React.FC = () => {
             <div className="flex flex-wrap gap-2">
               <button
                 onClick={() => handleScan('KSH-26-01482')}
-                className="px-3 py-1.5 rounded bg-surface-subtle hover:bg-surface-hover border border-gold-400/40 text-gold-300 text-xs font-mono flex items-center gap-1.5 transition-colors"
+                className="px-3.5 py-2 rounded-xl bg-surface-subtle hover:bg-surface-hover border border-gold-400/40 text-gold-300 text-xs font-mono flex items-center gap-1.5 transition-colors"
               >
-                <Zap className="w-3.5 h-3.5 text-gold-400" />
-                Scan: Atharva Warankar (Kshitij 2026)
+                <Zap className="w-3.5 h-3.5 text-gold-400" strokeWidth={1.75} />
+                Scan: Devansh Mehta (Kshitij 2026)
               </button>
 
               <button

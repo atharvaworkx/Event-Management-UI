@@ -9,6 +9,7 @@ import { SearchModal } from './components/modals/SearchModal';
 import { RegistrationModal } from './components/modals/RegistrationModal';
 import { DigitalPassModal } from './components/modals/DigitalPassModal';
 import { ScannerModal } from './components/modals/ScannerModal';
+import { CreateEventModal } from './components/modals/CreateEventModal';
 
 // Pages
 import { HomePage } from './pages/HomePage';
@@ -71,6 +72,7 @@ const MainContent: React.FC = () => {
       <RegistrationModal />
       <DigitalPassModal />
       <ScannerModal />
+      <CreateEventModal />
     </div>
   );
 };

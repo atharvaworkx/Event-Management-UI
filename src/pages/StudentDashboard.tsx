@@ -40,7 +40,7 @@ export const StudentDashboard: React.FC = () => {
 
   const bookmarkedEvents = events.filter(e => bookmarks.includes(e.id));
   
-  // Recommended based on Atharva Warankar's profile (Computer Science, Hackathons, AI)
+  // Recommended based on student profile (Computer Science, Hackathons, AI)
   const recommendedEvents = events.filter(e => 
     !registrations.some(r => r.eventId === e.id) &&
     (e.category === 'Hackathons' || e.category === 'Coding' || e.category === 'IT Fests')

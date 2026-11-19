@@ -236,7 +236,7 @@ export const AdminPanel: React.FC = () => {
           </h4>
           <div className="space-y-2 text-gray-400">
             <p className="p-2 bg-surface-subtle rounded border border-surface-border">
-              <span className="text-gold-400">[09:42:12 AM]</span> GATE_SCAN_PASS: Verified KSH-26-01482 (Atharva Warankar) at Alandi North Atrium.
+              <span className="text-gold-400">[09:42:12 AM]</span> GATE_SCAN_PASS: Verified KSH-26-01482 (Devansh Mehta) at Alandi North Atrium.
             </p>
             <p className="p-2 bg-surface-subtle rounded border border-surface-border">
               <span className="text-gold-400">[08:15:30 AM]</span> EVENT_STATUS_UPDATE: "Kshitij 2026" marked as REGISTRATION_OPEN by Faculty Convener.
